@@ -12,4 +12,3 @@ sast:
 sca:
   include:
     - .
-debug: true
