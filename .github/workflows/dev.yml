@@ -5,11 +5,17 @@ jobs:
   machineStandalone:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: actions/checkout@v2
       - name: Run Fluid Attacks CLI
         uses: docker://docker.io/fluidattacks/cli:latest
         with:
-          args: skims scan .
-      - name: Check for errors
-        if: failure()
-        run: exit 1
+          args: skims scan . > result.txt
+      - name: Check for vulnerabilities
+        run: |
+          if grep -q "CVSS" result.txt; then
+            echo "CVSS found!"
+            exit 1
+          else
+            echo "No CVSS found."
+          fi
+
