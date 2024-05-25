@@ -6,7 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run Fluid Attacks CLI
+      - name: Run FluidAttacks CLI
         uses: docker://docker.io/fluidattacks/cli:latest
         with:
-          args: skims --strict scan .
+          args: skims scan config-directory/config.yaml
+      - name: Upload scan results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+           name: scan-results
+           path: Scan-Results.csv
