@@ -2,7 +2,7 @@ namespace: my_app
 working_dir: .
 language: ES
 output:
-  file_path: /results.csv
+  file_path: ./results.csv
   format: CSV
 strict: true
 file_size_limit: false
