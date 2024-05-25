@@ -6,7 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/fluidattacks/cli:latest
-        name: machineStandalone
+      - name: Run Fluid Attacks CLI
+        uses: docker://docker.io/fluidattacks/cli:latest
         with:
           args: skims scan .
+      - name: Check for errors
+        if: failure()
+        run: exit 1
